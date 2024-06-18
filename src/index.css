@@ -8,15 +8,12 @@ body {
   padding: 0;
   background-color: white;
   font-family: "Inter", sans-serif;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
   display: none;
-}
-
-body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .site-wrapper {
@@ -26,7 +23,6 @@ body {
 }
 
 header {
-  color: black;
   height: 110px;
   display: flex;
   align-items: center;
@@ -34,7 +30,7 @@ header {
 }
 
 header .site-logo {
-  color: black;
+  color: red;
   margin-right: auto;
   text-transform: uppercase;
   font-weight: 900;
@@ -49,14 +45,14 @@ a.active-link {
 
 header a {
   text-decoration: none;
-  color: black;
+  color: red;
   font-weight: 600;
   padding: 5px 20px;
 }
 
 footer {
   background-color: black;
-  color: white;
+  color: red;
   height: 75px;
   display: flex;
   flex-shrink: 0;
@@ -65,3 +61,38 @@ footer {
   margin-top: auto;
   font-weight: 500;
 }
+
+.series-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  color: black;
+}
+
+.series-item {
+  flex: 1 1 calc(33.333% - 40px);
+  box-sizing: border-box;
+  border: 2px solid rgb(253, 11, 11);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+button {
+  width: 100%;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 20px;
+  cursor: pointer;
+  background-color: yellow;
+}
+
+
