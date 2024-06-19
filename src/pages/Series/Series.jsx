@@ -1,5 +1,6 @@
 import React from "react";
- import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Series() {
   const [series, setSeries] = useState([]);
@@ -7,19 +8,19 @@ export default function Series() {
   const [visibleCount, setVisibleCount] = useState(9);
 
   useEffect(() => {
-    fetch('https://podcast-api.netlify.app')
-      .then(response => {
+    fetch("https://podcast-api.netlify.app")
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
-      .then(data => setSeries(data))
-      .catch(error => setError(error));
+      .then((data) => setSeries(data))
+      .catch((error) => setError(error));
   }, []);
 
   const showMoreSeries = () => {
-    setVisibleCount(prevCount => prevCount + 9);
+    setVisibleCount((prevCount) => prevCount + 9);
   };
 
   if (error) {
@@ -30,11 +31,14 @@ export default function Series() {
     <div>
       <h1>Series List</h1>
       <div className="series-grid">
-        {series.slice(0, visibleCount).map(item => (
-          <div key={item.id} className="series-item">
-            <h2>{item.title}</h2>
-            <img src={item.image} alt={item.title} />
-          </div>
+        {series.slice(0, visibleCount).map((item) => (
+          <Link to={`/series/${item.id}`} key={item.id}>
+            <div key={item.id} className="series-item">
+              <h2>{item.title}</h2>
+              <img src={item.image} alt={item.title} />
+              <h4>seasons : {item.seasons}</h4>
+            </div>
+          </Link>
         ))}
       </div>
       {visibleCount < series.length && (
@@ -42,4 +46,4 @@ export default function Series() {
       )}
     </div>
   );
-};
+}
