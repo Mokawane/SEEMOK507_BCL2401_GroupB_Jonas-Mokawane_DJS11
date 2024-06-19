@@ -37,12 +37,10 @@ export default function SeriesDetail() {
   return (
     <div>
       {seasons.length > 0 ? (
-        seasons.map((season, index) => (
-          <Link to={`/series/season/${season.id}`} key={season.id}>
-            <div key={index} className="season-detail">
-              {<season className="image"></season> && (
-                <img src={season.image} alt={season.title} />
-              )}
+        seasons.map((season) => (
+          <Link to={`/series/${id}/episodes`} key={season.id}>
+            <div className="season-detail">
+              {season.image && <img src={season.image} alt={season.title} />}
               <h2>{season.title}</h2>
             </div>
           </Link>

@@ -17,7 +17,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/series" element={<Series />} />
           <Route path="/series/:id" element={<SeriesDetail />} />
-          <Route path="/series/season/:id" element={<Episodes />} />
+          <Route path="/series/:seasonId/episodes" element={<Episodes />} />
         </Route>
       </Routes>
     </BrowserRouter>
