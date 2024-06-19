@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function SeriesDetail() {
   const { id } = useParams();
@@ -9,19 +9,18 @@ export default function SeriesDetail() {
 
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/id/${id}`)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
-      .then(data => {
-        console.log(data); // Log the entire response to debug
-        setSeasons(data.seasons); // Adjust this based on the actual data structure
+      .then((data) => {
+        setSeasons(data.seasons);
         setLoading(false);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
         setError(error);
         setLoading(false);
       });
@@ -39,10 +38,14 @@ export default function SeriesDetail() {
     <div>
       {seasons.length > 0 ? (
         seasons.map((season, index) => (
-          <div key={index} className="season-detail">
-            {<season className="image"></season> && <img src={season.image} alt={season.title} />}
-            <h2>{season.title}</h2>
-          </div>
+          <Link to={`/series/season/${season.id}`} key={season.id}>
+            <div key={index} className="season-detail">
+              {<season className="image"></season> && (
+                <img src={season.image} alt={season.title} />
+              )}
+              <h2>{season.title}</h2>
+            </div>
+          </Link>
         ))
       ) : (
         <div>No seasons available.</div>

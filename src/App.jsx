@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Series from "./pages/Series/Series";
 import Layout from "./components/Layout";
 import SeriesDetail from "./pages/Series/SeriesDetail";
+import Episodes from "./pages/Series/Episodes";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/series" element={<Series />} />
           <Route path="/series/:id" element={<SeriesDetail />} />
+          <Route path="/series/season/:id" element={<Episodes />} />
         </Route>
       </Routes>
     </BrowserRouter>
