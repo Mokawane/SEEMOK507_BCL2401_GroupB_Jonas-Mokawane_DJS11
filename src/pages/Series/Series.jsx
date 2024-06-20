@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Series() {
   const [series, setSeries] = useState([]);
   const [error, setError] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(9);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app")
@@ -28,22 +28,26 @@ export default function Series() {
   }
 
   return (
-    <div>
+    <div className="series-container">
       <h1>Series List</h1>
-      <div className="series-grid">
+      <div className="series-cards">
         {series.slice(0, visibleCount).map((item) => (
-          <Link to={`/series/${item.id}`} key={item.id}>
-            <div key={item.id} className="series-item">
-              <h2>{item.title}</h2>
+          <div key={item.id} className="series-card">
+            <Link to={`/series/${item.id}`} key={item.id}>
               <img src={item.image} alt={item.title} />
-              <h4>seasons : {item.seasons}</h4>
-            </div>
-          </Link>
+              <div className="card-content">
+              </div>
+            </Link>
+            <h2>{item.title}</h2>
+            <h4>seasons : {item.seasons}</h4>
+          </div>
         ))}
       </div>
-      {visibleCount < series.length && (
-        <button onClick={showMoreSeries}>Show More</button>
-      )}
-    </div>
+      {
+        visibleCount < series.length && (
+          <button onClick={showMoreSeries}>Show More</button>
+        )
+      }
+    </div >
   );
 }

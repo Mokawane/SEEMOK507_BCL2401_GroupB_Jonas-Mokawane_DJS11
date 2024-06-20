@@ -1,9 +1,8 @@
-// pages/Series/Episodes.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Episodes() {
-  const { seasonId } = useParams(); // Use the correct parameter name
+  const { seasonId } = useParams();
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,7 +42,7 @@ export default function Episodes() {
       {episodes.length > 0 ? (
         <ul>
           {episodes.map((episode) => (
-            <li key={episode.episode}>
+            <li key={episode.episode} className="episode-card">
               <h3>{episode.title}</h3>
               <p>{episode.description}</p>
               <audio controls>
