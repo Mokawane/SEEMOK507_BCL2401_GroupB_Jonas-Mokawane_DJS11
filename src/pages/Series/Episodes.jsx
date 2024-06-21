@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
+import { sortItems } from "../../utils/sorting";
 
 export default function Episodes() {
   const { seasonId } = useParams();
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { sortOption } = useOutletContext();
 
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/id/${seasonId}`)
@@ -36,12 +38,14 @@ export default function Episodes() {
     return <div>Error: {error.message}</div>;
   }
 
+  const sortedEpisodes = sortItems(episodes, sortOption);
+
   return (
     <div>
       <h2>Episodes</h2>
-      {episodes.length > 0 ? (
+      {sortedEpisodes.length > 0 ? (
         <ul>
-          {episodes.map((episode) => (
+          {sortedEpisodes.map((episode) => (
             <li key={episode.episode} className="episode-card">
               <h3>{episode.title}</h3>
               <p>{episode.description}</p>

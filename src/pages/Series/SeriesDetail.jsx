@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useOutletContext } from "react-router-dom";
+import { sortItems } from "../../utils/sorting";
 
 export default function SeriesDetail() {
   const { id } = useParams();
@@ -7,6 +8,7 @@ export default function SeriesDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [visibleCount, setVisibleCount] = useState(12);
+  const { sortOption } = useOutletContext();
 
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/id/${id}`)
@@ -31,6 +33,8 @@ export default function SeriesDetail() {
     setVisibleCount((prevCount) => prevCount + 9);
   };
 
+  const sortedSeasons = sortItems(seasons, sortOption);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -41,8 +45,8 @@ export default function SeriesDetail() {
 
   return (
     <div className="series-detail-container">
-      {seasons.length > 0 ? (
-        seasons.slice(0, visibleCount).map((season) => (
+      {sortedSeasons.length > 0 ? (
+        sortedSeasons.slice(0, visibleCount).map((season) => (
           <Link to={`/series/${id}/episodes`} key={season.id} className="season-card-link">
             <div className="season-card">
               {season.image && <img src={season.image} alt={season.title} className="season-image"  />}
