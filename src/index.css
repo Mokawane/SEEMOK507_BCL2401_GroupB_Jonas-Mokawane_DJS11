@@ -200,3 +200,8 @@ button {
   margin-top: 8px;
 }
 
+.sort-icon-container {
+  display: flex;
+
+}
+

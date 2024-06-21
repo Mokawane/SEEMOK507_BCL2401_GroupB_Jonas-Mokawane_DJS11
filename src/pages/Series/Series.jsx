@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { sortItems } from "../../utils/sorting";
+import genresmapping from "../../genresMapping";
 
 export default function Series() {
   const [series, setSeries] = useState([]);
@@ -39,12 +40,20 @@ export default function Series() {
           <div key={item.id} className="series-card">
             <Link to={`/series/${item.id}`} key={item.id}>
               <img src={item.image} alt={item.title} />
-              <div className="card-content">
-              </div>
             </Link>
-            <h2>{item.title}</h2>
-            <h4>seasons : {item.seasons}</h4>
-            <h4>Release Date: {item.updated}</h4>
+            <div className="card-content">
+              <h2>{item.title}</h2>
+              <p><strong>seasons :</strong> {item.seasons}</p>
+              <div className="genres">
+                <strong>Genres:</strong> {item.genres.map((genre, index) => (
+                  <span key={index}>
+                    {genresmapping[genre]}
+                    {index !== item.genres.length - 1 && ', '}
+                  </span>
+                ))}
+              </div>
+              <p><strong>Release Date:</strong> {item.updated ? new Date(item.updated).toLocaleDateString() : "Unknown"}</p>
+            </div>
           </div>
         ))}
       </div>
